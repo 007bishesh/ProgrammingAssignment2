@@ -1,43 +1,55 @@
-## Put comments here that give an overall description of what your
-## functions do
+## The functions below take advantage of scoping rules in R to  
+## preserve state inside of R object
+## Specifically these functions below are creating a matrix and preserving its inverse into R object
 
-## Write a short comment describing this function
+
+## This function below will perform following operations : 
+## 1) set and get the value of original matrix 
+## 2) set and get the value of inverse matrix 
+## 3) creates a list of all these functions
 
 makeCacheMatrix <- function(x = matrix()) {
 		
-		m <- NULL
+		inv_matrix <- NULL
         
         set <- function(y=matrix()) {
 
                 x <<- y
-                m <<- NULL
+                inv_matrix <<- NULL
         }
         get <- function() x
         
-        setinve <- function(solve) m <<- solve
+        setinverse <- function(solve) inv_matrix <<- solve
         
-        getinve <- function() m
+        getinverse <- function() inv_matrix
         
-        list(set = set, get = get,setinve = setinve,getinve = getinve)
+        list(set = set, get = get,setinverse = setinverse,getinverse = getinverse)
 }
 
 
-## Write a short comment describing this function
+## The function below will peform following operations :
+##
+## 1) Checks if inverse of the matrix is already created, if it has already been calculated, 
+##    then  it returns the value from cache and stops executing other codes. 
+##
+## 2) If however the inverse has not been computed , then it calculates inverse by using solve function
+##    and preserves the value using setinverse which essentially is using   <<- operator 
+##    which can be used to assign a value to an object in an environment that is different from the current environment
 
 cacheSolve <- function(x, ...) {
         
-		m <- x$getinve()
+        inv_matrix <- x$getinverse()
         
-        if(!is.null(m)) {
-                message("getting cached data")
-                return(m)
+        if(!is.null(inv_matrix)) {
+                message("retrieving cached data")
+                return(inv_matrix)
         }
         
         data <- x$get()
         
-        m <- solve(data, ...)
+        inv_matrix <- solve(data, ...)
         
-        x$setinve(m)
+        x$setinve(inv_matrix)
         
-        m
+        inv_matrix
 }
