@@ -1,6 +1,6 @@
 ## The functions below take advantage of scoping rules in R to  
 ## preserve state inside of R object
-## Specifically these functions below are creating a matrix and preserving its inverse into R object
+## To be precise these functions below are creating a matrix and preserving its inverse into R object
 
 
 ## This function below will perform following operations : 
